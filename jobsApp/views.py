@@ -24,7 +24,7 @@ def joblist(request):
    
     context = {'jobs': page_obj, 
             'myfilter' : myfilter} # templates name
-    return render(request, 'jobsApp\\templates\\joblist.html', context) # template not working.
+    return render(request, "joblist.html", context) # template not working.
 
 # Job detail + Apply view
 def job_detail(request, slug):
@@ -45,4 +45,4 @@ def job_detail(request, slug):
         form = ApplyForm()
 
     context = {'job' : job_detail , 'form' : form}
-    return render(request,'job/job_detail.html', context)
+    return render(request,'jobdetail.html', context)
