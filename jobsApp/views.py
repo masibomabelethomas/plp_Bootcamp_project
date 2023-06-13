@@ -46,3 +46,20 @@ def job_detail(request, slug):
 
     context = {'job' : job_detail , 'form' : form}
     return render(request,'jobdetail.html', context)
+
+# Add_job view
+@login_required
+def add_job(request):
+    if request.method=='POST':
+        # pass
+        form = JobForm(request.POST , request.FILES) # request.FILES if theres any pic <form method="POST" enctype="multipart/form-data">
+        if form.is_valid(): # to make sure the form is valid
+            myform = form.save(commit=False) # save the form but not in the db because i need to add the person who added the job
+            myform.owner = request.user
+            myform.save()
+            return redirect(reverse('jobs:job-list')) # after saving redirect to the job list REVERSE takes the urls (project:app)
+
+
+    else:
+        form = JobForm()
+    return render(request,'addjob.html', {'form': form})
